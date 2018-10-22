@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
+import commonCss from "./static/style/common.css";
 import RouterMap from "./router/routerMap";
 import * as serviceWorker from './serviceWorker';
 
