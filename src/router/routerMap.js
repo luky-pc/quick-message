@@ -1,7 +1,7 @@
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
-import Header from '../pages/main/Header'
+import FriendList from '../pages/main/friendList'
 import NotFound from '../pages/notFound/NotFound'
 
 class RouterMap extends React.Component {
@@ -13,9 +13,8 @@ class RouterMap extends React.Component {
         return (
             <Router>
                 <div>
-                    <Header/>
                     <Switch>
-                        <Route exact path="/" component={""} />
+                        <Route exact path="/" component={FriendList} />
                         <Route path="*" component={NotFound}/>
                     </Switch>
                 </div>

@@ -1,0 +1,63 @@
+.contact-list {
+    background: #2e3238;
+    max-width: 280px;
+    min-height: 600px;
+    max-height: 800px;
+    padding: 18px 0;
+    margin-top: 80px;
+}
+.contact-list .friend {
+    text-align: left;
+    vertical-align:middle;
+    cursor: pointer;
+    padding: 7px 8px 7px 18px;
+    background-color: transparent;
+    border-bottom: 1px solid #292c33;
+}
+.contact-list .friend:hover,
+.contact-list .friend.current {
+    background-color: rgba(255,255,255,0.2);
+}
+.contact-list .portrait {
+    width: 40px;
+    height:40px;
+    float:left;
+}
+.contact-list ul li {
+    list-style: none;
+}
+.contact-list .info {
+    display: block;
+    padding-left:8px;
+    margin-left: 40px;
+}
+.contact-list .nick {
+    /*昵称*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: white;
+}
+.contact-list .msg {
+    /*最近一条信息*/
+    color: #989898;
+    font-size: 13px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    height: 1.5em;
+}
+.contact-list .time {
+    /*最近一条信息*/
+    display:inline-block;
+    padding:0 14px;
+}
+.float-r {
+    float: right;
+}
