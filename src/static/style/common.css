@@ -1,10 +1,13 @@
+.contact-main {
+    margin-top: 80px;
+}
 .contact-list {
     background: #2e3238;
     max-width: 280px;
     min-height: 600px;
     max-height: 800px;
     padding: 18px 0;
-    margin-top: 80px;
+    z-index: 2;
 }
 .contact-list .friend {
     text-align: left;
@@ -18,20 +21,27 @@
 .contact-list .friend.current {
     background-color: rgba(255,255,255,0.2);
 }
-.contact-list .portrait {
+.contact-list .portrait,
+.message-box .portrait{
     width: 40px;
     height:40px;
     float:left;
 }
-.contact-list ul li {
+.contact-main ul li {
     list-style: none;
 }
-.contact-list .info {
+.contact-list .info,
+.message-box .info{
     display: block;
     padding-left:8px;
     margin-left: 40px;
 }
-.contact-list .nick {
+.message-box .text-r .info {
+    margin-right:40px;
+    padding-right:8px;
+}
+.contact-list .nick,
+.message-box .nick{
     /*昵称*/
     overflow: hidden;
     text-overflow: ellipsis;
@@ -42,7 +52,11 @@
     line-height: 20px;
     color: white;
 }
-.contact-list .msg {
+.message-box .nick {
+    color: #4f4f4f;
+}
+.contact-list .msg,
+.message-box .msg {
     /*最近一条信息*/
     color: #989898;
     font-size: 13px;
@@ -53,11 +67,26 @@
     word-wrap: normal;
     height: 1.5em;
 }
-.contact-list .time {
+.contact-list .time,
+.message-box .time {
     /*最近一条信息*/
     display:inline-block;
     padding:0 14px;
 }
 .float-r {
-    float: right;
+    float: right !important;
+}
+.text-r {
+    text-align: right !important;
+}
+.message-box {
+    min-height: 600px;
+    max-height: 800px;
+    background-color: #eee;
+    z-index: 1;
+}
+.message-container {
+    width:100%;
+    height:100%;
+    padding: 14px;
 }

@@ -2,7 +2,9 @@ import { Row, Col, Icon, Badge } from 'antd';
 import React from "react";
 import {fakeMsgs} from "../../static/testData";
 import {getArrayItemField,formatDate} from "../../util/common";
+import MessageBox from "./messageBox";
 import defaultPortrait from "../../static/img/defaultPortrait.jpg";
+import {emptyContact} from "./defaultData/defaultData";
 class MessageList extends React.Component {
     constructor(props) {
         super(props);
@@ -15,7 +17,7 @@ class MessageList extends React.Component {
         this.state = {
             defaultPortrait,
             msgs,
-            selectedFriend: {}
+            selectedFriend: emptyContact
         }
     }
 
@@ -36,8 +38,8 @@ class MessageList extends React.Component {
     render() {
         const {defaultPortrait,msgs,selectedFriend}=this.state;
         return (
-            <Row>
-                <Col className="contact-list" offset={6} span={6}>
+            <Row className="contact-main">
+                <Col className="contact-list" offset={6} span={4}>
                     {
                         msgs.map((item) => {
                             return <div key={item.id} onClick={()=>{this.selectFriend(item)}} className={"friend "+(selectedFriend.id===item.id?"current":"")}>
@@ -56,6 +58,9 @@ class MessageList extends React.Component {
                             </div>
                         })
                     }
+                </Col>
+                <Col span={10} className="message-box">
+                    <MessageBox contact={selectedFriend}/>
                 </Col>
             </Row>
         );
