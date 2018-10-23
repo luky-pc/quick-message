@@ -79,6 +79,9 @@
 .text-r {
     text-align: right !important;
 }
+.text-c {
+    text-align: center !important;
+}
 .message-box {
     min-height: 600px;
     max-height: 800px;

@@ -32,11 +32,12 @@ class MessageBox extends React.Component {
         return (
             <div className="message-container">
                 {
-                    contact.message.map((msg)=>{
+                    contact.message.reverse().map((msg,index,arr)=>{
                         return <div key={msg.time} className={this.isMyselfMsg(msg)?"text-r":""}>
+                            {!index||(arr[index-1].time-msg.time)>180000?<Row className="text-c">{formatDate(msg.time, "hh:mm")}</Row>:""}
                             <img className={"portrait "+(this.isMyselfMsg(msg)?"float-r":"")} alt="" src={(this.isMyselfMsg(msg)?user.portrait:contact.portrait) || defaultPortrait}/>
                             <ul className="info">
-                                <li><span className="nick">{(this.isMyselfMsg(msg)?user.nick:contact.nick)}</span><span className="float-r time">{formatDate(msg.time, "hh:mm")}</span></li>
+                                <li><span className="nick">{(this.isMyselfMsg(msg)?user.nick:contact.nick)}</span></li>
                                 <li className="msg">{msg.content}</li>
                             </ul>
                         </div>
