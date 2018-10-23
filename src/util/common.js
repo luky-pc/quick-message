@@ -9,6 +9,8 @@ let formatDate = (v, format)=>{
             d = new Date(parseInt(v.replace("/Date(", "").replace(")/", ""), 10));
         else
             d = new Date(Date.parse(v.replace(/-/g, "/").replace("T", " ").split(".")[0]));//.split(".")[0] 用来处理出现毫秒的情况，截取掉.xxx，否则会出错
+    } else {
+        d = new Date(v);
     }
 
 
