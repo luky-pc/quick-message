@@ -17,11 +17,18 @@ class MessageList extends React.Component {
         this.state = {
             defaultPortrait,
             msgs,
+            test:10,
             selectedFriend: emptyContact
         }
     }
 
+    watch={
+        test:()=>{
+            console.log("change");
+        }
+    }
     selectFriend=(selectedFriend)=>{
+        this.updateState({test:this.state.test+1});
         selectedFriend.message.map((msg)=>{msg.isRead=true;});
         this.setState({selectedFriend});
     };

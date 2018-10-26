@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import commonCss from "./static/style/common.css";
 import RouterMap from "./router/routerMap";
 import * as serviceWorker from './serviceWorker';
+import "./util/enhanceInit";
 
 ReactDOM.render(<RouterMap />, document.getElementById('root'));
 
