@@ -8,7 +8,6 @@ import {emptyContact} from "./defaultData/defaultData";
 class MessageList extends React.Component {
     constructor(props) {
         super(props);
-        super(props);
         let msgs = JSON.parse(sessionStorage.getItem("msgs"));
         if(!msgs){
             /**TODO:请求服务器初始化msgs**/
@@ -22,13 +21,7 @@ class MessageList extends React.Component {
         }
     }
 
-    watch={
-        test:()=>{
-            console.log("change");
-        }
-    }
     selectFriend=(selectedFriend)=>{
-        this.updateState({test:this.state.test+1});
         selectedFriend.message.map((msg)=>{msg.isRead=true;});
         this.setState({selectedFriend});
     };
