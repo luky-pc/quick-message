@@ -15,7 +15,7 @@ class RouterMap extends React.Component {
         super(props);
         setInterval(()=>{
             this.props.receiveMessage({from: "17298566363", to:"666546", isRead: false, content: "那就去居酒屋吧?", time: (new Date()).getTime()});
-        },20000)
+        },1000)
     }
 
     render() {

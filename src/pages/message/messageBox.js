@@ -45,6 +45,7 @@ class MessageBox extends React.Component {
     render() {
         const {contact,userInfo:user}=this.props;
         return (
+            <div>
             <div className="message-container">
                 {
                     contact.message.map((msg,index,arr)=>{
@@ -58,7 +59,11 @@ class MessageBox extends React.Component {
                         </div>
                     })
                 }
-                <Input value={this.state.inputMessage} onPressEnter={this.sendMessageClick} onChange ={this.enterMessage}/><Button onClick={this.sendMessageClick}>发送</Button>
+            </div>
+                <Row className="btn-container">
+                    <Col span={19}><Input value={this.state.inputMessage} onPressEnter={this.sendMessageClick} onChange ={this.enterMessage}/></Col>
+                    <Col span={5}><Button onClick={this.sendMessageClick}>发送</Button></Col>
+                </Row>
             </div>
         );
     }
