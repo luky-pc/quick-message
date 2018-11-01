@@ -53,9 +53,9 @@ class MessageList extends React.Component {
                                             item.message.find((msg) => {
                                                 return msg.isRead == false;
                                             }) ? <Badge className="float-r" dot={this.unReadCount(item.message)>3} count={this.unReadCount(item.message)}><span className="time">{formatDate(getArrayItemField(item.message, 0, "time"), "hh:mm")}</span></Badge> :
-                                                <span className="float-r time">{formatDate(getArrayItemField(item.message, 0, "time"), "hh:mm")}</span>
+                                                <span className="float-r time">{formatDate(getArrayItemField(item.message.length-1, 0, "time"), "hh:mm")}</span>
                                         }</li>
-                                    <li className="msg">{getArrayItemField(item.message, 0, "content")}</li>
+                                    <li className="msg">{getArrayItemField(item.message, item.message.length-1, "content")}</li>
                                 </ul>
                             </div>
                         })
