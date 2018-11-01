@@ -24,9 +24,6 @@ class MessageList extends React.Component {
     }
 
     selectFriend=(selectedFriend)=>{
-        this.props.sendMessage({
-            from: "666546", to: "17298566362", isRead: false, content: "go go go", time: 1540305920000
-        });
         selectedFriend.message.map((msg)=>{msg.isRead=true;});
         this.setState({selectedFriend});
     };

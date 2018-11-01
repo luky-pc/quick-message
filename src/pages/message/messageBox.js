@@ -1,4 +1,4 @@
-import { Row, Col, Icon, Badge } from 'antd';
+import { Row, Col, Icon, Badge, Input, Button } from 'antd';
 import React from "react";
 import userService from "../../service/userService";
 import {getArrayItemField,formatDate} from "../../util/common";
@@ -12,25 +12,37 @@ class MessageBox extends React.Component {
         let user = userService.getUserInfo();
 
         this.state = {
-            user
+            user,
+            inputMessage:""
         }
     }
+    enterMessage=(e)=>{
+        let inputMessage=e.target.value
+        this.setState({inputMessage});
+    }
+    sendMessageClick=()=>{
+        let {userInfo,contact}=this.props,
+            {id:from}=userInfo,
+            {id:to}=contact,
+            {inputMessage:content}=this.state,
+            time=(new Date()).getTime();
+        this.props.sendMessage({from, to, isRead: true, content, time});
+        this.setState({inputMessage:""});
+    }
     getMsgFrom=(msg)=>{/*后续补充群组内逻辑*/
-        const {contact}=this.props,
-            {user}=this.state;
+        const {contact,userInfo}=this.props;
         if (msg.from == contact.id) {
             return contact
         } else {
-            return user;
+            return userInfo;
         }
     };
     isMyselfMsg = (msg) => {
-        let {user} = this.state;
-        return this.getMsgFrom(msg).id == user.id;
+        let {userInfo} = this.props;
+        return this.getMsgFrom(msg).id == userInfo.id;
     };
     render() {
-        const {contact}=this.props,
-            {user}=this.state;
+        const {contact,userInfo:user}=this.props;
         return (
             <div className="message-container">
                 {
@@ -45,13 +57,15 @@ class MessageBox extends React.Component {
                         </div>
                     })
                 }
+                <Input value={this.state.inputMessage} onPressEnter={this.sendMessageClick} onChange ={this.enterMessage}/><Button onClick={this.sendMessageClick}>发送</Button>
             </div>
         );
     }
 }
 const mapStateToProps = (state) => {
         return {
-            messageList: state.messageList
+            messageList: state.messageList,
+            userInfo: state.userInfo
         }
     },
     mapDispatchToProps = (dispatch) => {
