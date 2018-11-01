@@ -3,14 +3,14 @@ let fakeMsgs = [{
     nick: "eleven",
     portrait: undefined,
     id: "17298566362",
-    message: [{from: "17298566362", to:"666546", isRead: true, content: "吃饭 吃饭", time: 1540305920000}]
+    message: [{from: "17298566362", to: "666546", isRead: true, content: "吃饭 吃饭", time: 1540305920000}]
 },
     {
         isGroup: false,
         nick: "超酷",
         portrait: undefined,
         id: "17298566363",
-        message: [{from: "17298566363", to:"666546", isRead: false, content: "在吗?", time: 1540305820000}]
+        message: [{from: "17298566363", to: "666546", isRead: false, content: "在吗?", time: 1540305820000}]
     },
     {
         isGroup: false,
