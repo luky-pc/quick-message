@@ -5,10 +5,12 @@ import {getArrayItemField,formatDate} from "../../util/common";
 import MessageBox from "./messageBox";
 import defaultPortrait from "../../static/img/defaultPortrait.jpg";
 import {emptyContact} from "./defaultData/defaultData";
+import {connect} from "react-redux";
+import {actionTypes} from "../../Redux/action/actionTypes";
 class MessageList extends React.Component {
     constructor(props) {
         super(props);
-        let msgs = JSON.parse(sessionStorage.getItem("msgs"));
+        let msgs = this.props.messageList;
         if(!msgs){
             /**TODO:请求服务器初始化msgs**/
             msgs=fakeMsgs;
@@ -22,6 +24,9 @@ class MessageList extends React.Component {
     }
 
     selectFriend=(selectedFriend)=>{
+        this.props.sendMessage({
+            from: "666546", to: "17298566362", isRead: false, content: "go go go", time: 1540305920000
+        });
         selectedFriend.message.map((msg)=>{msg.isRead=true;});
         this.setState({selectedFriend});
     };
@@ -67,4 +72,17 @@ class MessageList extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+        return {
+            messageList: state.messageList
+        }
+    },
+    mapDispatchToProps = (dispatch) => {
+        return {
+            sendMessage: (message) => {
+                dispatch({type: actionTypes.SEND_MESSAGE, message})
+            }
+        }
+    };
+MessageList=connect(mapStateToProps,mapDispatchToProps)(MessageList);
 export default MessageList;

@@ -3,6 +3,8 @@ import React from "react";
 import userService from "../../service/userService";
 import {getArrayItemField,formatDate} from "../../util/common";
 import defaultPortrait from "../../static/img/defaultPortrait.jpg";
+import {actionTypes} from "../../Redux/action/actionTypes";
+import connect from "react-redux/es/connect/connect";
 
 class MessageBox extends React.Component {
     constructor(props) {
@@ -47,5 +49,17 @@ class MessageBox extends React.Component {
         );
     }
 }
-
+const mapStateToProps = (state) => {
+        return {
+            messageList: state.messageList
+        }
+    },
+    mapDispatchToProps = (dispatch) => {
+        return {
+            sendMessage: (message) => {
+                dispatch({type: actionTypes.SEND_MESSAGE, message})
+            }
+        }
+    };
+MessageBox=connect(mapStateToProps,mapDispatchToProps)(MessageBox);
 export default MessageBox;
