@@ -1,8 +1,8 @@
-import {fakeMsgs} from "../static/testData";
+import {fakeMsgs,userInfo} from "../static/testData";
 let initStore={
-    userInfo:{},
+    userInfo:userInfo,//{}
     contactList:[],
-    messageList:fakeMsgs
+    messageList:fakeMsgs//[]
 };
 
 export {initStore};

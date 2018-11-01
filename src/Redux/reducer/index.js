@@ -10,10 +10,10 @@ export default (state=initStore,action)=>{
                 return contact.id == message.to;
             });
             /*TODO:当前聊天记录中没有该联系人的处理情况，新建contact 对象*/
-            contact.message.unshift(message);
+            contact.message.push(message);
             return {...state, messageList};
         case actionTypes.RECEIVE_MESSAGE:
-            messageList.unshift(...state.messageList);
+            messageList.push(...state.messageList);
             contact = messageList.find((contact) => {
                 return contact.id == message.from;
             });

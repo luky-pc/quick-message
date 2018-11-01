@@ -17,7 +17,8 @@ class MessageBox extends React.Component {
         }
     }
     enterMessage=(e)=>{
-        let inputMessage=e.target.value
+        console.log(this.props.contact.message)
+        let inputMessage=e.target.value;
         this.setState({inputMessage});
     }
     sendMessageClick=()=>{
@@ -46,7 +47,7 @@ class MessageBox extends React.Component {
         return (
             <div className="message-container">
                 {
-                    contact.message.reverse().map((msg,index,arr)=>{
+                    contact.message.map((msg,index,arr)=>{
                         return <div key={msg.time} className={this.isMyselfMsg(msg)?"text-r":""}>
                             {!index||(arr[index-1].time-msg.time)>180000?<Row className="text-c">{formatDate(msg.time, "hh:mm")}</Row>:""}
                             <img className={"portrait "+(this.isMyselfMsg(msg)?"float-r":"")} alt="" src={(this.isMyselfMsg(msg)?user.portrait:contact.portrait) || defaultPortrait}/>
