@@ -5,6 +5,7 @@ import MessageList from '../pages/message/messageList'
 import NotFound from '../pages/notFound/NotFound'
 import {actionTypes} from "../Redux/action/actionTypes";
 import connect from "react-redux/es/connect/connect";
+import {ws} from "../socket-connect/connect";
 
 class RouterMap extends React.Component {
     updateHandle() {
@@ -13,9 +14,10 @@ class RouterMap extends React.Component {
 
     constructor(props) {
         super(props);
-        setInterval(()=>{
-            this.props.receiveMessage({from: "17298566363", to:"666546", isRead: false, content: "那就去居酒屋吧?", time: (new Date()).getTime()});
-        },1000)
+        ws.onmessage=(e)=>{//初始化websocket 监听后台回传信息
+            let message=JSON.parse(e.data);
+            this.props.receiveMessage(message);
+        };
     }
 
     render() {
