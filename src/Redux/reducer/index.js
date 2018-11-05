@@ -2,7 +2,7 @@ import {initStore} from "../initData";
 import {actionTypes} from "../action/actionTypes";
 import {ws} from "../../socket-connect/connect";
 export default (state=initStore,action)=>{
-    const {message}=action;
+    const {message,userInfo}=action;
     let messageList= [],contact;
     switch (action.type){
         case actionTypes.SEND_MESSAGE:
@@ -22,6 +22,8 @@ export default (state=initStore,action)=>{
             /*TODO:当前聊天记录中没有该联系人的处理情况，新建contact 对象*/
             contact.message.push(message);
             return {...state,messageList};
+        case actionTypes.SET_USER:
+            return {...state,userInfo}
         default:
             return state
     }

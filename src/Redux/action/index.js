@@ -10,3 +10,7 @@ export const receiveMessage=(message)=>({
         message
     }
 );
+export const setUser = (userInfo) => ({
+    type: actionTypes.SET_USER,
+    userInfo
+})
