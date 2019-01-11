@@ -14,10 +14,6 @@ class RouterMap extends React.Component {
 
     constructor(props) {
         super(props);
-        ws.onmessage=(e)=>{//初始化websocket 监听后台回传信息
-            let message=JSON.parse(e.data);
-            this.props.receiveMessage(message);
-        };
     }
 
     render() {
