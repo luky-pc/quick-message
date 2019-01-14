@@ -1,37 +1,70 @@
-import { Row, Col, Icon, Badge } from 'antd';
+/**
+ * @author: create by eleven
+ * @version: v1.0
+ * @description:
+ * @date:2019/1/11
+ **/
 import React from "react";
-import {fakeMsgs} from "../../static/testData";
-import defaultPortrait from "../../static/img/defaultPortrait.jpg";
-import {emptyContact} from "../message/defaultData/defaultData";
-import {userList} from "./defaultData";
+import { Form, Icon, Input, Button,Row,Col } from 'antd';
 import {connect} from "react-redux";
 import {actionTypes} from "../../Redux/action/actionTypes";
-class Login extends React.Component {
+class LoginForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            defaultPortrait,
-            test:10,
-            selectedUser: emptyContact
-        }
     }
-
-    selectUser=(selectedUser)=>{
-        this.props.setUser(selectedUser);
-        this.props.history.push("main");
-    };
+     login=()=>{
+         this.props.form.validateFields((err,values)=>{
+             if(!err){
+                 this.props.login({phoneNumber:values.phoneNumber,password:values.password});
+             }
+         });
+     }
     render() {
-        const {defaultPortrait,msgs,selectedFriend}=this.state;
+        let {getFieldDecorator,getFieldValue}=this.props.form,
+            layout={
+                labelCol: {
+                    xs: { span: 24 },
+                    sm: { span: 8 },
+                },
+                wrapperCol: {
+                    xs: { span: 24 },
+                    sm: { span: 13 },
+                }
+            };
         return (
-            <Row className="contact-main">
-                <Col className="contact-list" offset={6} span={4}>
+            <Form className="login-form">
+                <Form.Item label={"手机号"} {...layout}>
                     {
-                        userList.map((item) => {
-                            return <div key={item.id} onClick={()=>{this.selectUser(item)}}>{item.nick}</div>
-                        })
+                        getFieldDecorator("phoneNumber",{
+                            rules:[
+                                {required:true,message:"手机号为必填项。"}
+                            ]
+                        })(
+                            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}/>}/>
+                        )
                     }
-                </Col>
-            </Row>
+                </Form.Item>
+                <Form.Item label={"密码"} {...layout}>
+                    {
+                        getFieldDecorator("password",{
+                            rules:[
+                                {required:true,message:"密码为必填项。"}
+                            ]
+                        })(
+                            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                        )
+                    }
+                </Form.Item>
+                <Form.Item>
+                    <Row><Col offset={3} span={18}>
+                        <Button onClick={this.login} type="primary" className="login-form-btn">
+                            登录
+                        </Button>
+                        或者 <a href="./register">注册新用户</a>
+                    </Col>
+                    </Row>
+                </Form.Item>
+            </Form>
         );
     }
 }
@@ -43,10 +76,11 @@ const mapStateToProps = (state) => {
     },
     mapDispatchToProps = (dispatch) => {
         return {
-            setUser: (userInfo) => {
-                dispatch({type: actionTypes.SET_USER, userInfo})
+            login: (userInfo) => {
+                dispatch({type: actionTypes.LOGIN, userInfo})
             }
         }
     };
-Login=connect(mapStateToProps,mapDispatchToProps)(Login);
+LoginForm=connect(mapStateToProps,mapDispatchToProps)(LoginForm);
+let Login=Form.create()(LoginForm);
 export default Login;

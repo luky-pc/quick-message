@@ -102,3 +102,19 @@
     left:14px;
     right:0;
 }
+
+/**登录界面或注册界面**/
+.login-form,.register-form {
+    width:400px;
+    border: 1px solid #989898;
+    border-radius: 4px;
+    position:absolute;
+    top: 100px;
+    left: calc(50% - 200px);
+    padding:40px 8px;
+    display: inline-block;
+}
+
+.login-form-btn,.register-from-btn {
+    width:100%;
+}
