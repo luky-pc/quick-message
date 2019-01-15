@@ -16,7 +16,7 @@ class RegisterForm extends React.Component {
     register=()=>{
         this.props.form.validateFields((err,values)=>{
             if(!err){
-                this.props.register({phoneNumber:values.phoneNumber,password:values.password});
+                this.props.register({phoneNumber:values.phoneNumber,password:values.password,nickName:values.nickName});
             }
         });
     };
