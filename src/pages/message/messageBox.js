@@ -9,10 +9,8 @@ import connect from "react-redux/es/connect/connect";
 class MessageBox extends React.Component {
     constructor(props) {
         super(props);
-        let user = userService.getUserInfo();
 
         this.state = {
-            user,
             inputMessage:""
         }
     }
@@ -53,7 +51,7 @@ class MessageBox extends React.Component {
                             {!index||(arr[index-1].time-msg.time)>180000?<Row className="text-c">{formatDate(msg.time, "hh:mm")}</Row>:""}
                             <img className={"portrait "+(this.isMyselfMsg(msg)?"float-r":"")} alt="" src={(this.isMyselfMsg(msg)?user.portrait:contact.portrait) || defaultPortrait}/>
                             <ul className="info">
-                                <li><span className="nick">{(this.isMyselfMsg(msg)?user.nick:contact.nick)}</span></li>
+                                <li><span className="nickName">{(this.isMyselfMsg(msg)?user.nickName:contact.nickName)}</span></li>
                                 <li className="msg">{msg.content}</li>
                             </ul>
                         </div>

@@ -22,6 +22,7 @@ class RouterMap extends React.Component {
                 switch (msg.actionType) {
                     case actionTypes.REGISTER_USER:
                     case actionTypes.LOGIN:
+                        this.props.setCurrentUser(msg.user);
                         window.location.href = "./message";
                         break;
                 }

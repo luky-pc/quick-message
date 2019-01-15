@@ -40,8 +40,8 @@
     margin-right:40px;
     padding-right:8px;
 }
-.contact-list .nick,
-.message-box .nick{
+.contact-list .nickName,
+.message-box .nickName{
     /*昵称*/
     overflow-y: hidden;
     text-overflow: ellipsis;
@@ -52,7 +52,7 @@
     line-height: 20px;
     color: white;
 }
-.message-box .nick {
+.message-box .nickName {
     color: #4f4f4f;
 }
 .contact-list .msg,

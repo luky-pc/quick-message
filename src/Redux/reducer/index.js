@@ -25,6 +25,7 @@ let Reducer = (state=initStore,action)=>{
             contact.message.push(message);
             return {...state,messageList};
         case actionTypes.SET_USER:
+            sessionStorage.setItem("currentUser",JSON.stringify(userInfo));
             return {...state,userInfo};
         case actionTypes.GET_CONTACT_LIST:
             return {...state,};/**TODO:更新联系人列表（登录时初始化调用）**/

@@ -1,3 +1,3 @@
-let emptyContact={isGroup:false,nick:undefined,portrait:undefined,id:undefined,message:[]};
+let emptyContact={isGroup:false,nickName:undefined,portrait:undefined,id:undefined,message:[]};
 
 export {emptyContact};

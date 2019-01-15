@@ -48,7 +48,7 @@ class MessageList extends React.Component {
                                 <img className="portrait" alt="" src={item.portrait || defaultPortrait}/>
                                 <ul className="info">
                                     <li>
-                                        <span className="nick">{item.nick}</span>
+                                        <span className="nickName">{item.nickName}</span>
                                         {
                                             item.message.find((msg) => {
                                                 return msg.isRead == false;

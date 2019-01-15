@@ -1,20 +1,20 @@
 let fakeMsgs = [{
     isGroup: false,
-    nick: "eleven",
+    nickName: "eleven",
     portrait: undefined,
     id: "17298566362",
     message: [{from: "17298566362", to: "666546", isRead: true, content: "吃饭 吃饭", time: 1540305920000}]
 },
     {
         isGroup: false,
-        nick: "超酷",
+        nickName: "超酷",
         portrait: undefined,
         id: "17298566363",
         message: [{from: "17298566363", to: "666546", isRead: false, content: "在吗?", time: 1540305820000}]
     },
     {
         isGroup: false,
-        nick: "熊二",
+        nickName: "熊二",
         portrait: undefined,
         id: "17298566364",
         message: [{from: "666546", to: "17298566364", isRead: false, content: "干啥子?", time: new Date()}, {
@@ -29,8 +29,8 @@ let fakeMsgs = [{
             time: 1540305620000
         }]
     }];
-let userList=[{isGroup:false,nick:"eleven",portrait:undefined,id:"17298566362"},
-    {isGroup:false,nick:"超酷",portrait:undefined,id:"17298566363"},
-    {isGroup:false,nick:"熊二",portrait:undefined,id:"17298566364"}];
-let userInfo = {nick:"全世界最帅",portrait:undefined,id:"666546"};
+let userList=[{isGroup:false,nickName:"eleven",portrait:undefined,id:"17298566362"},
+    {isGroup:false,nickName:"超酷",portrait:undefined,id:"17298566363"},
+    {isGroup:false,nickName:"熊二",portrait:undefined,id:"17298566364"}];
+let userInfo = {nickName:"全世界最帅",portrait:undefined,id:"666546"};
 export {fakeMsgs,userInfo};
