@@ -1,6 +1,5 @@
-import { Row, Col, Icon, Badge } from 'antd';
+import { Row, Col, Input, Icon, Badge } from 'antd';
 import React from "react";
-import {fakeMsgs} from "../../static/testData";
 import {getArrayItemField,formatDate} from "../../util/common";
 import MessageBox from "./messageBox";
 import defaultPortrait from "../../static/img/defaultPortrait.jpg";
@@ -10,22 +9,29 @@ import {actionTypes} from "../../Redux/action/actionTypes";
 class MessageList extends React.Component {
     constructor(props) {
         super(props);
-        let msgs = this.props.messageList;
-        if(!msgs){
-            /**TODO:请求服务器初始化msgs**/
-            msgs=fakeMsgs;
-        }
         this.state = {
             defaultPortrait,
-            msgs,
             test:10,
-            selectedFriend: emptyContact
+            selectedFriend: emptyContact,
+            showSearchResult:false
         }
     }
 
+    /**
+     * 选中好友，进入聊天界面
+     * @param selectedFriend
+     */
     selectFriend=(selectedFriend)=>{
         selectedFriend.message.map((msg)=>{msg.isRead=true;});
         this.setState({selectedFriend});
+    };
+    /**
+     * 通过电话号码查询用户列表
+     * @param phoneNumber
+     */
+    searchContact=(phoneNumber)=>{
+        this.props.searchContact(phoneNumber);
+        this.setState({showSearchResult:true});
     };
     /**
      * 获取单个好友未读信息数量
@@ -38,13 +44,30 @@ class MessageList extends React.Component {
         }).length
     };
     render() {
-        const {defaultPortrait,msgs,selectedFriend}=this.state;
+        const {defaultPortrait,selectedFriend,showSearchResult}=this.state,
+            {messageList:msgs,searchUserResult} = this.props;
         return (
             <Row className="contact-main">
                 <Col className="contact-list" offset={6} span={4}>
-                    {
+                    <div className="contact-search-input">
+                        <Input prefix={<Icon type="search" onClick={this.searchContact} style={{color: 'rgba(0,0,0,.25)',cursor:'pointer'}}/>} placeholder="搜索联系人"/>
+                    </div>
+                    {showSearchResult ? searchUserResult.map((item)=>{
+                            return <div key={item.id} className={"search-contact"}>
+                                <img className="portrait" alt="" src={item.portrait || defaultPortrait}/>
+                                <ul className="info">
+                                    <li>
+                                        <span className="nickName">{item.nickName}</span>
+                                    </li>
+                                    <li className="msg">{item.phoneNumber}</li>
+                                </ul>
+                                <Icon type="user-add" className="add-contact-icon"/>
+                            </div>
+                        }) :
                         msgs.map((item) => {
-                            return <div key={item.id} onClick={()=>{this.selectFriend(item)}} className={"friend "+(selectedFriend.id===item.id?"current":"")}>
+                            return <div key={item.id} onClick={() => {
+                                this.selectFriend(item)
+                            }} className={"friend " + (selectedFriend.id === item.id ? "current" : "")}>
                                 <img className="portrait" alt="" src={item.portrait || defaultPortrait}/>
                                 <ul className="info">
                                     <li>
@@ -52,10 +75,13 @@ class MessageList extends React.Component {
                                         {
                                             item.message.find((msg) => {
                                                 return msg.isRead == false;
-                                            }) ? <Badge className="float-r" dot={this.unReadCount(item.message)>3} count={this.unReadCount(item.message)}><span className="time">{formatDate(getArrayItemField(item.message, 0, "time"), "hh:mm")}</span></Badge> :
-                                                <span className="float-r time">{formatDate(getArrayItemField(item.message.length-1, 0, "time"), "hh:mm")}</span>
+                                            }) ? <Badge className="float-r" dot={this.unReadCount(item.message) > 3}
+                                                        count={this.unReadCount(item.message)}><span
+                                                    className="time">{formatDate(getArrayItemField(item.message, 0, "time"), "hh:mm")}</span></Badge> :
+                                                <span
+                                                    className="float-r time">{formatDate(getArrayItemField(item.message.length - 1, 0, "time"), "hh:mm")}</span>
                                         }</li>
-                                    <li className="msg">{getArrayItemField(item.message, item.message.length-1, "content")}</li>
+                                    <li className="msg">{getArrayItemField(item.message, item.message.length - 1, "content")}</li>
                                 </ul>
                             </div>
                         })
@@ -71,13 +97,20 @@ class MessageList extends React.Component {
 
 const mapStateToProps = (state) => {
         return {
-            messageList: state.messageList
+            messageList: state.messageList,
+            searchUserResult: state.searchUserResult
         }
     },
     mapDispatchToProps = (dispatch) => {
         return {
             sendMessage: (message) => {
                 dispatch({type: actionTypes.SEND_MESSAGE, message})
+            },
+            searchContact:(phoneNumber)=>{
+                dispatch({type:actionTypes.SEARCH_USER, phoneNumber});
+            },
+            addContact: (contact) => {
+                dispatch({type: actionTypes.ADD_CONTACT, contact})
             }
         }
     };

@@ -1,7 +1,6 @@
-import { Row, Col, Icon, Badge, Input, Button } from 'antd';
+import { Row, Col, Input, Button } from 'antd';
 import React from "react";
-import userService from "../../service/userService";
-import {getArrayItemField,formatDate} from "../../util/common";
+import {formatDate} from "../../util/common";
 import defaultPortrait from "../../static/img/defaultPortrait.jpg";
 import {actionTypes} from "../../Redux/action/actionTypes";
 import connect from "react-redux/es/connect/connect";
