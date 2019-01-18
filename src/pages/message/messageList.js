@@ -6,12 +6,14 @@ import defaultPortrait from "../../static/img/defaultPortrait.jpg";
 import {emptyContact} from "./defaultData/defaultData";
 import {connect} from "react-redux";
 import {actionTypes} from "../../Redux/action/actionTypes";
+import {ws} from "../../socket-connect/connect";
 class MessageList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             defaultPortrait,
             test:10,
+            inputPhoneNumber:"",
             selectedFriend: emptyContact,
             showSearchResult:false
         }
@@ -25,13 +27,23 @@ class MessageList extends React.Component {
         selectedFriend.message.map((msg)=>{msg.isRead=true;});
         this.setState({selectedFriend});
     };
+    updateinputPhoneNumber=(value)=>{
+        this.setState({inputPhoneNumber:value});
+    };
     /**
      * 通过电话号码查询用户列表
      * @param phoneNumber
      */
-    searchContact=(phoneNumber)=>{
-        this.props.searchContact(phoneNumber);
+    searchContact=()=>{
+        this.props.searchContact(this.state.inputPhoneNumber);
         this.setState({showSearchResult:true});
+    };
+    /**
+     * 发起添加联系人请求
+     * @param contact
+     */
+    addContact=(contact)=>{
+        this.props.addContact(contact.phoneNumber);
     };
     /**
      * 获取单个好友未读信息数量
@@ -44,13 +56,14 @@ class MessageList extends React.Component {
         }).length
     };
     render() {
-        const {defaultPortrait,selectedFriend,showSearchResult}=this.state,
+        const {defaultPortrait,selectedFriend,showSearchResult,inputPhoneNumber}=this.state,
             {messageList:msgs,searchUserResult} = this.props;
         return (
             <Row className="contact-main">
                 <Col className="contact-list" offset={6} span={4}>
+                    {showSearchResult&&<Icon onClick={()=>{this.setState({showSearchResult:false})}} type="arrow-left" style={{fontSize:"16px",color:"#FFF",cursor:"pointer"}}/>}
                     <div className="contact-search-input">
-                        <Input prefix={<Icon type="search" onClick={this.searchContact} style={{color: 'rgba(0,0,0,.25)',cursor:'pointer'}}/>} placeholder="搜索联系人"/>
+                        <Input value={inputPhoneNumber} onChange={(e)=>{this.updateinputPhoneNumber(e.target.value);}} prefix={<Icon type="search" onClick={this.searchContact} style={{color: 'rgba(0,0,0,.25)',cursor:'pointer'}}/>} placeholder="搜索联系人"/>
                     </div>
                     {showSearchResult ? searchUserResult.map((item)=>{
                             return <div key={item.id} className={"search-contact"}>
@@ -61,7 +74,7 @@ class MessageList extends React.Component {
                                     </li>
                                     <li className="msg">{item.phoneNumber}</li>
                                 </ul>
-                                <Icon type="user-add" className="add-contact-icon"/>
+                                <Icon type="user-add" onClick={()=>{this.addContact(item);}} className="add-contact-icon"/>
                             </div>
                         }) :
                         msgs.map((item) => {
@@ -109,8 +122,8 @@ const mapStateToProps = (state) => {
             searchContact:(phoneNumber)=>{
                 dispatch({type:actionTypes.SEARCH_USER, phoneNumber});
             },
-            addContact: (contact) => {
-                dispatch({type: actionTypes.ADD_CONTACT, contact})
+            addContact: (contactPhoneNumber) => {
+                dispatch({type: actionTypes.ADD_CONTACT, phoneNumber:contactPhoneNumber})
             }
         }
     };

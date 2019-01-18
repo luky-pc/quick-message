@@ -3,13 +3,13 @@ import {actionTypes} from "../action/actionTypes";
 import {ws} from "../../socket-connect/connect";
 
 let Reducer = (state=initStore,action)=>{
-    const {message,userInfo}=action;
-    let messageList= [],contact;
+    const {message,userInfo,phoneNumber,searchUserResult,newContact}=action;
+    let messageList=[],contact;
     switch (action.type){
         case actionTypes.SEND_MESSAGE:
             messageList.push(...state.messageList);
             contact = messageList.find((contact) => {
-                return contact.id == message.to;
+                return contact.id === message.to;
             });
             /*TODO:当前聊天记录中没有该联系人的处理情况，新建contact 对象*/
             message.actionType=actionTypes.SEND_MESSAGE;
@@ -42,6 +42,19 @@ let Reducer = (state=initStore,action)=>{
             userInfo.actionType=actionTypes.LOGIN;
             ws.send(JSON.stringify(userInfo));
             return {...state};/**TODO:处理登录**/
+        case actionTypes.SEARCH_USER:
+            ws.send(JSON.stringify({actionType:actionTypes.SEARCH_USER,phoneNumber}));
+            return {...state};
+        case actionTypes.RECEIVE_SEARCH_USER:
+            return {...state,searchUserResult};
+        case actionTypes.ADD_CONTACT:
+            ws.send(JSON.stringify({actionType:actionTypes.ADD_CONTACT,userPhoneNumber:state.userInfo.phoneNumber,phoneNumber}));
+            return {...state};
+        case actionTypes.RECEIVE_ADD_CONTACT:
+            let {messageList:msg}=state;
+            !newContact.message&&(newContact.message=[]);
+            msg.push(newContact);
+            return {...state,messageList:msg};
         default:
             return state
     }

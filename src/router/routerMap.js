@@ -25,6 +25,13 @@ class RouterMap extends React.Component {
                         this.props.setCurrentUser(msg.user);
                         window.location.href = "./message";
                         break;
+                    case actionTypes.SEARCH_USER:
+                        this.props.receiveSearchResult(msg.userList);
+                        break;
+                    case actionTypes.ADD_CONTACT:
+                        message.success(msg.message);
+                        this.props.receiveAddContact(msg.contact);
+                        break;
                 }
             }else{
                 message.warning(msg.message);
@@ -57,9 +64,15 @@ const mapStateToProps = (state) => {
             receiveMessage: (message) => {
                 dispatch({type: actionTypes.RECEIVE_MESSAGE, message})
             },
-            setCurrentUser:(userInfo)=>{
-                dispatch({type: actionTypes.SET_USER,userInfo});
-        }
+            setCurrentUser: (userInfo) => {
+                dispatch({type: actionTypes.SET_USER, userInfo});
+            },
+            receiveSearchResult: (searchUserResult)=>{
+                dispatch({type:actionTypes.RECEIVE_SEARCH_USER,searchUserResult});
+            },
+            receiveAddContact: (contact)=>{
+                dispatch({type:actionTypes.RECEIVE_ADD_CONTACT,newContact:contact});
+            }
         }
     };
 RouterMap=connect(mapStateToProps,mapDispatchToProps)(RouterMap);
