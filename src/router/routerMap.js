@@ -23,7 +23,7 @@ class RouterMap extends React.Component {
                     case actionTypes.REGISTER_USER:
                     case actionTypes.LOGIN:
                         this.props.setCurrentUser(msg.user);
-                        window.location.href = "./message";
+                        this.router.history.push("/message");
                         break;
                     case actionTypes.SEARCH_USER:
                         this.props.receiveSearchResult(msg.userList);
@@ -41,7 +41,7 @@ class RouterMap extends React.Component {
 
     render() {
         return (
-            <Router>
+            <Router ref={(ref)=>{this.router=ref;}}>
                 <div>
                     <Switch>
                         <Route exact path="/login" component={Login} />
