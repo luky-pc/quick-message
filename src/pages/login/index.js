@@ -8,6 +8,7 @@ import React from "react";
 import { Form, Icon, Input, Button,Row,Col } from 'antd';
 import {connect} from "react-redux";
 import {actionTypes} from "../../Redux/action/actionTypes";
+import {Link} from 'react-router-dom'
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
@@ -60,7 +61,7 @@ class LoginForm extends React.Component {
                         <Button onClick={this.login} type="primary" className="login-form-btn">
                             登录
                         </Button>
-                        或者 <a href="./register">注册新用户</a>
+                        或者 <Link to={{pathname:"register"}}>注册新用户</Link>
                     </Col>
                     </Row>
                 </Form.Item>

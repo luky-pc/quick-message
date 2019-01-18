@@ -6,7 +6,6 @@ import defaultPortrait from "../../static/img/defaultPortrait.jpg";
 import {emptyContact} from "./defaultData/defaultData";
 import {connect} from "react-redux";
 import {actionTypes} from "../../Redux/action/actionTypes";
-import {ws} from "../../socket-connect/connect";
 class MessageList extends React.Component {
     constructor(props) {
         super(props);

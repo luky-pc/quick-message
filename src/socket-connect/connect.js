@@ -21,5 +21,9 @@ if(window.WebSocket){
         console.log(e.data);
     }
 }
+window.setInterval(function(){ //每隔5秒钟发送一次心跳，避免websocket连接因超时而自动断开
+    var ping = {"actionType":"ping"};
+    ws.send(JSON.stringify(ping));
+},30000);
 
 export {ws};

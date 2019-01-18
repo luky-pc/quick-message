@@ -32,6 +32,9 @@ class RouterMap extends React.Component {
                         message.success(msg.message);
                         this.props.receiveAddContact(msg.contact);
                         break;
+                    case actionTypes.SEND_MESSAGE:
+                        this.props.receiveMessage(msg.message);
+                        break;
                 }
             }else{
                 message.warning(msg.message);
