@@ -2,7 +2,9 @@
  * 提供websocket服务
  */
 import {WSERVER} from "../config/config";
-let ws,logInfo={};
+ import objectCheck from "../util/objectCheck";
+import userService from "../service/userService";
+let ws,logInfo={},tempSend;
 if(window.WebSocket){
     ws = new WebSocket(WSERVER);
 
@@ -19,6 +21,16 @@ if(window.WebSocket){
 
     ws.onmessage = function(e){
         console.log(e.data);
+    }
+    ws.sendMessage=function(msg){
+        let userInfo=userService.getUserInfo();
+        if(objectCheck.isObject(msg)){
+            msg.currentUserPhoneNumber=userInfo.phoneNumber;
+        }else{
+            msg=JSON.parse(msg);
+            msg.currentUserPhoneNumber=userInfo.phoneNumber;
+        }
+        ws.send(JSON.stringify(msg));
     }
 }
 window.setInterval(function(){ //每隔5秒钟发送一次心跳，避免websocket连接因超时而自动断开
