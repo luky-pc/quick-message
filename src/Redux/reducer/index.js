@@ -3,7 +3,7 @@ import {actionTypes} from "../action/actionTypes";
 import {ws} from "../../socket-connect/connect";
 
 let Reducer = (state=initStore,action)=>{
-    const {message,userInfo,phoneNumber,searchUserResult,newContact}=action;
+    const {message,userInfo,phoneNumber,searchUserResult,newContact,contactList}=action;
     let messageList=[],contact;
     switch (action.type){
         case actionTypes.SEND_MESSAGE:
@@ -50,11 +50,16 @@ let Reducer = (state=initStore,action)=>{
         case actionTypes.ADD_CONTACT:
             ws.sendMessage(JSON.stringify({actionType:actionTypes.ADD_CONTACT,userPhoneNumber:state.userInfo.phoneNumber,phoneNumber}));
             return {...state};
-        case actionTypes.RECEIVE_ADD_CONTACT:
+        case actionTypes.RECEIVE_ADD_CONTACT://接收后台返回添加联系人结果
             let {messageList:msg}=state;
             !newContact.message&&(newContact.message=[]);
             msg.push(newContact);
             return {...state,messageList:msg};
+        case actionTypes.REQUEST_CONTACT_LIST://请求后台返回联系人列表
+            ws.sendMessage({actionType:actionTypes.REQUEST_CONTACT_LIST});
+            return {...state};
+        case actionTypes.RECEIVE_CONTACT_LIST://请求后台返回联系人列表
+            return {...state,contactList};
         default:
             return state
     }

@@ -16,6 +16,7 @@ class RouterMap extends React.Component {
 
     constructor(props) {
         super(props);
+        this.props.requestContactList();
         ws.onmessage=(e)=>{//初始化websocket 监听后台回传信息
             let msg=JSON.parse(e.data);
             if(msg.success) {
@@ -34,6 +35,9 @@ class RouterMap extends React.Component {
                         break;
                     case actionTypes.SEND_MESSAGE:
                         this.props.receiveMessage(msg.message);
+                        break;
+                    case actionTypes.REQUEST_CONTACT_LIST:
+                        this.props.receiveContactList(msg.contactList);
                         break;
                 }
             }else{
@@ -75,6 +79,12 @@ const mapStateToProps = (state) => {
             },
             receiveAddContact: (contact)=>{
                 dispatch({type:actionTypes.RECEIVE_ADD_CONTACT,newContact:contact});
+            },
+            requestContactList:()=>{
+                dispatch({type:actionTypes.REQUEST_CONTACT_LIST});
+            },
+            receiveContactList: (contactList)=>{
+                dispatch({type:actionTypes.RECEIVE_ADD_CONTACT,newContact:contactList});
             }
         }
     };

@@ -9,6 +9,8 @@ let actionTypes={
     LOGIN:"login",//用户登录
     SEARCH_USER:"searchUser",//查找用户
     RECEIVE_SEARCH_USER:"receive_search_user",//接收查找到的用户列表
+    REQUEST_CONTACT_LIST:"requestContactList",//请求联系人列表
+    RECEIVE_CONTACT_LIST:"receiveContactList",//接收联系人列表
     ADD_CONTACT:"addContact",//添加联系人
     RECEIVE_ADD_CONTACT:"receiveAddContact"//处理添加联系人操作
 };
