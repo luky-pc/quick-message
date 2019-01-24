@@ -7,6 +7,7 @@ let actionTypes={
     REGISTER_USER: "register",//注册新用户
     RECEIVE_REGISTER_RESULT: "receiveRegisterResult",//获取用户注册结果
     LOGIN:"login",//用户登录
+    OFFLINE:"offline",//用户未登录状态
     SEARCH_USER:"searchUser",//查找用户
     RECEIVE_SEARCH_USER:"receive_search_user",//接收查找到的用户列表
     REQUEST_CONTACT_LIST:"requestContactList",//请求联系人列表
