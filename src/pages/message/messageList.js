@@ -17,7 +17,9 @@ class MessageList extends React.Component {
             showSearchResult:false
         }
     }
-
+    componentDidMount(){
+        this.props.requestContactList();
+    }
     /**
      * 选中好友，进入聊天界面
      * @param selectedFriend
@@ -123,7 +125,10 @@ const mapStateToProps = (state) => {
             },
             addContact: (contactPhoneNumber) => {
                 dispatch({type: actionTypes.ADD_CONTACT, phoneNumber:contactPhoneNumber})
-            }
+            },
+            requestContactList:()=>{
+                dispatch({type:actionTypes.REQUEST_CONTACT_LIST});
+            },
         }
     };
 MessageList=connect(mapStateToProps,mapDispatchToProps)(MessageList);

@@ -48,9 +48,6 @@ class RouterMap extends React.Component {
             }
         };
     }
-    componentDidMount(){
-        this.props.requestContactList();
-    }
     render() {
         return (
             <Router ref={(ref)=>{this.router=ref;}}>
@@ -85,11 +82,8 @@ const mapStateToProps = (state) => {
             receiveAddContact: (contact)=>{
                 dispatch({type:actionTypes.RECEIVE_ADD_CONTACT,newContact:contact});
             },
-            requestContactList:()=>{
-                dispatch({type:actionTypes.REQUEST_CONTACT_LIST});
-            },
             receiveContactList: (contactList)=>{
-                dispatch({type:actionTypes.RECEIVE_ADD_CONTACT,newContact:contactList});
+                dispatch({type:actionTypes.RECEIVE_CONTACT_LIST,contactList});
             }
         }
     };

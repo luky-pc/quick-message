@@ -59,7 +59,7 @@ let Reducer = (state=initStore,action)=>{
             ws.sendMessage({actionType:actionTypes.REQUEST_CONTACT_LIST});
             return {...state};
         case actionTypes.RECEIVE_CONTACT_LIST://请求后台返回联系人列表
-            return {...state,contactList};
+            return {...state,contactList,messageList:contactList.map((item)=>{item.message=[];return item;})};
         default:
             return state
     }

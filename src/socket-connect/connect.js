@@ -15,11 +15,15 @@ function clearHeartbeat(){//关闭心跳
     clearInterval(st);
 }
 function createWS() {
+    let unsentMsgs=[];
     if (window.WebSocket) {
         ws = new WebSocket(WSERVER);
 
         ws.onopen = function (e) {
             console.log("连接服务器成功");
+            unsentMsgs.forEach((msg)=>{
+                ws.sendMessage(msg);
+            });
         };
         ws.onclose = function (e) {
             console.log("服务器关闭");
@@ -41,9 +45,12 @@ function createWS() {
                 msg = JSON.parse(msg);
                 msg.currentUserPhoneNumber = userInfo.phoneNumber;
             }
-            if(ws.readyState===1){
+            console.log("ws.readyState: "+ws.readyState);
+            if (ws.readyState === 0) {
+                unsentMsgs.push(msg);
+            } else if (ws.readyState === 1) {
                 ws.send(JSON.stringify(msg));
-            }else{
+            } else {
                 failCount++;
                 if(failCount%2!==0) {
                     lastWs=ws;
